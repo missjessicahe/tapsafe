@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero"><p class="eyebrow">CSC 6222 GRADUATE PROJECT</p>
+<h1>TapSafe</h1><p>Human-centered NFC access control with a measurable baseline and defended design.</p></section>
+<div class="grid">
+<article class="card danger"><h2>Insecure baseline</h2>
+<p>A permanent URL exposes the entire synthetic profile.</p>
+<a class="button" href="/baseline/demo-card">Open baseline</a></article>
+<article class="card"><h2>Layered access</h2>
+<p>A valid token reveals a public layer; protected details require authorization.</p>
+<a class="button" href="/tap/demo-token-001">Tap defended card</a></article>
+</div>
+{% endblock %}

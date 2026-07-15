@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}TapSafe Card{% endblock %}
+{% block content %}
+{% if arrived_from_nfc %}
+<section class="tap-banner">
+  <span class="tap-icon">◉</span>
+  <div><strong>NFC tap recognized</strong><br><span>The physical card opened this protected TapSafe route.</span></div>
+</section>
+{% endif %}
+
+<section class="card">
+  <p class="eyebrow">PUBLIC DISCLOSURE LAYER</p>
+  <h1>{{ card["preferred_name"] }}</h1>
+  <h2>Helpful actions</h2>
+  <p>{{ card["helpful_actions"] }}</p>
+  <h2>General note</h2>
+  <p>{{ card["general_note"] }}</p>
+</section>
+
+{% if protected %}
+<section class="card success">
+  <p class="eyebrow">AUTHORIZED PROTECTED LAYER</p>
+  <h2>Trusted contact</h2>
+  <p>{{ card["trusted_contact"] }}</p>
+  <h2>Private plan</h2>
+  <p>{{ card["private_plan"] }}</p>
+</section>
+{% elif rate_limited %}
+<section class="card danger">
+  <h2>Too many attempts</h2>
+  <p>Access is temporarily rate-limited.</p>
+</section>
+{% else %}
+<section class="card">
+  <p class="eyebrow">PROTECTED DISCLOSURE LAYER</p>
+  <h2>Authorization required</h2>
+  <p>Possession of the NFC card does not authorize access to protected information.</p>
+  <form method="post">
+    <label for="pin">Demo PIN</label>
+    <input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="one-time-code" required>
+    <button class="button" type="submit">Unlock protected details</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

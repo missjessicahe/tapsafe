@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}
+<section class="card danger"><p class="eyebrow">INTENTIONALLY INSECURE</p>
+<h1>Full profile: {{ card["preferred_name"] }}</h1>
+<p>Anyone with this permanent URL sees everything.</p></section>
+<section class="card"><h2>Helpful actions</h2><p>{{ card["helpful_actions"] }}</p>
+<h2>General note</h2><p>{{ card["general_note"] }}</p>
+<h2>Trusted contact</h2><p>{{ card["trusted_contact"] }}</p>
+<h2>Private plan</h2><p>{{ card["private_plan"] }}</p></section>
+{% endblock %}

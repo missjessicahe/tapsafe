@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}NFC Setup — TapSafe{% endblock %}
+{% block content %}
+<section class="card">
+  <p class="eyebrow">PHYSICAL CARD SETUP</p>
+  <h1>Write TapSafe to your NFC card</h1>
+  <p>
+    Encode the dedicated <code>/nfc/&lt;token&gt;</code> URL, not the ordinary
+    profile URL. This lets TapSafe record a separate <strong>nfc_tap</strong>
+    audit event before opening the defended disclosure page.
+  </p>
+</section>
+
+{% for card in cards %}
+<section class="card {% if not card['active'] %}danger{% endif %}">
+  <h2>{{ card["card_id"] }}</h2>
+  <p>Status: <strong>{{ "Active" if card["active"] else "Revoked" }}</strong></p>
+  {% set nfc_url = base_url ~ '/nfc/' ~ card['token'] %}
+  <label for="url-{{ card['id'] }}">URL to write with NFC Tools</label>
+  <div class="copy-row">
+    <input id="url-{{ card['id'] }}" value="{{ nfc_url }}" readonly>
+    <button class="button" type="button" onclick="copyNfcUrl('url-{{ card['id'] }}', this)">Copy URL</button>
+  </div>
+  <p class="small-note">
+    On iPhone, use NFC Tools → Write → Add a record → URL/URI → paste this URL → Write.
+  </p>
+</section>
+{% endfor %}
+
+<section class="card">
+  <h2>Expected tap flow</h2>
+  <ol>
+    <li>Hold the top of the phone near the NFC card.</li>
+    <li>Tap the iPhone notification.</li>
+    <li>TapSafe records an <code>nfc_tap</code> event.</li>
+    <li>The public disclosure layer opens.</li>
+    <li>Protected details remain locked until the correct PIN is entered.</li>
+  </ol>
+</section>
+
+<script>
+async function copyNfcUrl(inputId, button) {
+  const input = document.getElementById(inputId);
+  try {
+    await navigator.clipboard.writeText(input.value);
+    const oldText = button.textContent;
+    button.textContent = "Copied";
+    setTimeout(() => button.textContent = oldText, 1400);
+  } catch (error) {
+    input.select();
+    document.execCommand("copy");
+    button.textContent = "Copied";
+  }
+}
+</script>
+{% endblock %}

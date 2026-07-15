@@ -1,0 +1,16 @@
+{
+  "policy": "layered-access",
+  "public_fields": [
+    "preferred_name",
+    "helpful_actions",
+    "general_note"
+  ],
+  "protected_fields": [
+    "trusted_contact",
+    "private_plan"
+  ],
+  "authorization_required": true,
+  "revocation_supported": true,
+  "rate_limiting": true,
+  "audit_logging": true
+}

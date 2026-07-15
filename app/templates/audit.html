@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<section class="card"><h1>Audit events</h1><table>
+<tr><th>Time</th><th>Event</th><th>Card</th><th>Source</th><th>Outcome</th><th>Details</th></tr>
+{% for e in events %}<tr><td>{{ e["ts"] }}</td><td>{{ e["event_type"] }}</td>
+<td>{{ e["card_id"] or "-" }}</td><td>{{ e["source_ip"] }}</td>
+<td>{{ e["outcome"] }}</td><td>{{ e["details"] }}</td></tr>{% endfor %}
+</table></section>{% endblock %}

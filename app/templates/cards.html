@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}
+<section class="card"><h1>Card lifecycle</h1>
+<table><tr><th>Card</th><th>Token</th><th>Status</th><th>Action</th></tr>
+{% for card in cards %}<tr><td>{{ card["card_id"] }}</td><td><code>{{ card["token"] }}</code></td>
+<td>{{ "Active" if card["active"] else "Revoked" }}</td>
+<td><form method="post" action="/admin/cards/{{ card['id'] }}/toggle">
+<button class="button">{{ "Revoke" if card["active"] else "Reactivate" }}</button></form></td></tr>{% endfor %}
+</table></section>{% endblock %}

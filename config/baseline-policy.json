@@ -1,0 +1,6 @@
+{
+  "policy": "unrestricted-baseline",
+  "authorization_required": false,
+  "revocation_supported": false,
+  "audit_logging": false
+}
